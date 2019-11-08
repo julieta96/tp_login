@@ -56,5 +56,18 @@ public class Producto {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
+	
+	public Boolean productoDisponible() {
+		if(this.estado==false) {
+			this.estado=true;
+		}
+		
+		return this.estado;
+	}
+	
+	public Boolean productoNoDisponible() {
+		
+		return this.estado=false;
+	}
 
 }

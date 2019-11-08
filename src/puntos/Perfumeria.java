@@ -59,6 +59,16 @@ public class Perfumeria implements Vende {
 	public void setListaProducto(LinkedList<Producto> listaProducto) {
 		this.listaProducto = listaProducto;
 	}
+	
+	
+
+	public Administrador getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Administrador administrador) {
+		this.administrador = administrador;
+	}
 
 	public Boolean agregarUsuario(Cliente usuario) {
 
@@ -79,18 +89,23 @@ public class Perfumeria implements Vende {
 	}
 
 	public Boolean loguearUsuario(String email, String password) {
+		Integer cantidadDeIntentos=0;
+		
+		cantidadDeIntentos++;
 
 		for (Cliente lista : listaUsuarios) {
 
 			if (lista.getEmail().equals(email) && lista.getPassword().equals(password)) {
-
+                
 				sesionAbierta = true;
+				break;
 
-			} else {
+			} else if((cantidadDeIntentos==5) || (lista.getEmail()!=email && lista.getPassword()!=password)) {
 				sesionAbierta = false;
 			}
 		}
-
+		
+		
 		return sesionAbierta;
 
 	}
@@ -102,7 +117,7 @@ public class Perfumeria implements Vende {
 		}
 	}
 
-	public Boolean eliminarUsuario(String nombreUsuario) {
+	public Boolean eliminarUsuario(Integer idU) {
 
 		Boolean eliminado = false;
 
@@ -111,7 +126,7 @@ public class Perfumeria implements Vende {
 		while (it.hasNext()) {
 
 			Cliente u = it.next();
-			if (u.getNombre().equals(nombreUsuario)) {
+			if (u.getId().equals(idU)) {
 				it.remove();
 				eliminado = true;
 			}
