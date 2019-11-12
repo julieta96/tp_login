@@ -8,11 +8,11 @@ public class Producto {
 	private String descripcion;
 	private Boolean estado;
 
-	public Producto(Double precio , Integer punto , Integer id , String descripcion) {
+	public Producto(Double precio , Integer punto , String descripcion) {
 		
 		this.precio=precio;
 		this.punto=punto;
-		this.id=id;
+		this.id=(int)(Math.random()*200)+1;
 		this.descripcion=descripcion;
 		this.estado=false;
 	}

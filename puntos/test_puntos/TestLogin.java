@@ -7,20 +7,22 @@ import org.junit.Test;
 import puntos.Administrador;
 import puntos.Cliente;
 import puntos.Perfumeria;
+import puntos.Producto;
 import puntos.Usuario;
+import puntos.Venta;
 
 public class TestLogin {
 
 	@Test
 	public void testQueAgregueAlSistemaUsuarios() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p", 456);
-		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10", 490);
-		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p", 500);
-		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520", 512);
-		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io", 515);
+		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p");
+		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10");
+		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p");
+		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520");
+		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io");
 
 		assertTrue(unlam.agregarUsuario((Cliente) cliente1));
 		assertTrue(unlam.agregarUsuario((Cliente) cliente2));
@@ -35,13 +37,13 @@ public class TestLogin {
 	@Test
 	public void testQueLogueeUsuarios() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p", 456);
-		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10", 490);
-		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p", 500);
-		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520", 512);
-		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io", 515);
+		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p");
+		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10");
+		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p");
+		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520");
+		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io");
 
 		unlam.agregarUsuario((Cliente) cliente1);
 		unlam.agregarUsuario((Cliente) cliente2);
@@ -60,9 +62,9 @@ public class TestLogin {
 	@Test
 	public void testQueAlIngresarEmailOPasswordIncorrectoNoPuedaIngresar() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		Usuario clientee = new Cliente("Luz", "Rodriguez", "luzrz@gmail.com", "ghjf", 530);
+		Usuario clientee = new Cliente("Luz", "Rodriguez", "luzrz@gmail.com", "ghjf");
 
 		unlam.agregarUsuario((Cliente) clientee);
 
@@ -73,9 +75,9 @@ public class TestLogin {
 	@Test
 	public void testQueAlIntentarLoguearse5VecesNoPuedaIngresar() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		Usuario cliente = new Cliente("Oscar", "Sosa", "oss@gmail.com", "685", 520);
+		Usuario cliente = new Cliente("Oscar", "Sosa", "oss@gmail.com", "685");
 
 		unlam.agregarUsuario((Cliente) cliente);
 
@@ -86,17 +88,17 @@ public class TestLogin {
 		assertFalse(unlam.loguearUsuario("josedz@gmail.com", "40"));
 
 	}
-	
+
 	@Test
 	public void testQueElimineUnUsuario() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p", 456);
-		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10", 490);
-		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p", 500);
-		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520", 512);
-		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io", 515);
+		Usuario cliente1 = new Cliente("Jose", "Diaz", "josedz@gmail.com", "789p");
+		Usuario cliente2 = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10");
+		Usuario cliente3 = new Cliente("Lorenzo", "Rodriguez", "lorenzorz@gmail.com", "9014p");
+		Usuario cliente4 = new Cliente("Sofia", "Aguirre", "sofiag@gmail.com", "4520");
+		Usuario cliente5 = new Cliente("Fernando", "Lopez", "fer_lopez@gmail.com", "57io");
 
 		unlam.agregarUsuario((Cliente) cliente1);
 		unlam.agregarUsuario((Cliente) cliente2);
@@ -104,29 +106,42 @@ public class TestLogin {
 		unlam.agregarUsuario((Cliente) cliente4);
 		unlam.agregarUsuario((Cliente) cliente5);
 
-	    unlam.loguearUsuario("josedz@gmail.com", "789p");
+		unlam.loguearUsuario("josedz@gmail.com", "789p");
 		unlam.loguearUsuario("margz@gmail.com", "abc10");
 		unlam.loguearUsuario("lorenzorz@gmail.com", "9014p");
 		unlam.loguearUsuario("sofiag@gmail.com", "4520");
 		unlam.loguearUsuario("fer_lopez@gmail.com", "57io");
-		
-		assertTrue(unlam.eliminarUsuario(515));
+
+		assertTrue(unlam.eliminarUsuario(cliente1.getId()));
 
 	}
-	
+
 	@Test
 	public void testQueVerifiqueQueElOLaAdministradorSeaCorrecto() {
 
-		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
-		
-		
-		assertEquals(administrador , unlam.getAdministrador());
+
+		assertEquals(administrador, unlam.getAdministrador());
 
 	}
-	
-	
-	
+
+	@Test
+	public void testQueClienteRealizeCompra() {
+
+		Usuario administrador = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
+		Perfumeria unlam = new Perfumeria("UNLAM", (Administrador) administrador);
+		Cliente cliente = new Cliente("Marta", "Guzman", "margz@gmail.com", "abc10");
+		Producto p1 = new Producto(500.0 , 15 , "DISNEY PRINCESA PERFUME MANZANA BLANCANIEVES");
+		unlam.agregarUsuario(cliente);
+		p1.productoDisponible();
+		unlam.agregarProducto(p1);
+		unlam.loguearUsuario("margz@gmail.com", "abc10");
+		Venta v1 = new Venta (cliente , p1);
+		
+        //assertFalse(cliente.comprar(cliente, p1));
+     
+	}
 	
 	
 

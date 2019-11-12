@@ -1,19 +1,19 @@
 package puntos;
 
 public abstract class Usuario {
-	
+
 	private String nombre;
 	private String apellido;
 	private String email;
 	private String password;
 	private Integer id;
 
-	public Usuario(String nombre, String apellido, String email, String password, Integer id) {
+	public Usuario(String nombre, String apellido, String email, String password) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.password = password;
-		this.id = id;
+		this.id=(int)(Math.random()*200)+1;
 
 	}
 
@@ -57,5 +57,6 @@ public abstract class Usuario {
 		this.id = id;
 	}
 
+	public abstract Boolean esMayor(Integer edad) throws EdadInvalida;
 
 }

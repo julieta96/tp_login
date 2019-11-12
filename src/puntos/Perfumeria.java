@@ -1,8 +1,10 @@
 package puntos;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import puntos.Producto;
 
@@ -10,7 +12,7 @@ public class Perfumeria implements Vende {
 
 	private String nombre;
 	private Administrador administrador;
-	private List<Cliente> listaUsuarios = new LinkedList<Cliente>();
+	private Set<Cliente> listaUsuarios = new HashSet<Cliente>();
 	private List<Venta> listaVentas = new LinkedList<Venta>();
 	private List<Producto> listaProducto = new LinkedList<Producto>();
 	private Boolean sesionAbierta;
@@ -24,9 +26,14 @@ public class Perfumeria implements Vende {
 	public Perfumeria(String nombre, Administrador administrador, String nombreAd, String apellido, String email,
 			String password, Integer id) {
 		this.nombre = nombre;
-		this.administrador = new Administrador(nombreAd, apellido, email, password, id);
+		this.administrador = new Administrador(nombreAd, apellido, email, password);
 		this.sesionAbierta = false;
 	}
+	
+	public Perfumeria() {
+		
+	}
+
 
 	public String getNombre() {
 		return nombre;
@@ -36,11 +43,11 @@ public class Perfumeria implements Vende {
 		this.nombre = nombre;
 	}
 
-	public List<Cliente> getListaUsuarios() {
+	public Set<Cliente> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-	public void setListaUsuarios(LinkedList<Cliente> listaUsuarios) {
+	public void setListaUsuarios(HashSet<Cliente> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
 
@@ -88,10 +95,7 @@ public class Perfumeria implements Vende {
 
 	}
 
-	public Boolean loguearUsuario(String email, String password) {
-		Integer cantidadDeIntentos=0;
-		
-		cantidadDeIntentos++;
+	public Boolean loguearUsuario(String email, String password) throws EmailOPasswordInvalido {
 
 		for (Cliente lista : listaUsuarios) {
 
@@ -100,8 +104,11 @@ public class Perfumeria implements Vende {
 				sesionAbierta = true;
 				break;
 
-			} else if((cantidadDeIntentos==5) || (lista.getEmail()!=email && lista.getPassword()!=password)) {
+			} else {
+				
 				sesionAbierta = false;
+				throw new EmailOPasswordInvalido();
+				
 			}
 		}
 		
@@ -117,7 +124,7 @@ public class Perfumeria implements Vende {
 		}
 	}
 
-	public Boolean eliminarUsuario(Integer idU) {
+	public Boolean eliminarUsuario(Integer idU) throws IdInvalido {
 
 		Boolean eliminado = false;
 
@@ -129,6 +136,8 @@ public class Perfumeria implements Vende {
 			if (u.getId().equals(idU)) {
 				it.remove();
 				eliminado = true;
+			}else {
+				throw new IdInvalido();
 			}
 
 		}
@@ -150,7 +159,7 @@ public class Perfumeria implements Vende {
 		return productosConPuntos;
 	}
 
-	public Producto buscarProductoPorId(Integer idProducto) {
+	public Producto buscarProductoPorId(Integer idProducto) throws IdInvalido {
 
 		Producto productoEncontrado = null;
 
@@ -158,6 +167,8 @@ public class Perfumeria implements Vende {
 			if (buscarProducto.getId().equals(idProducto)) {
 
 				productoEncontrado = buscarProducto;
+			}else {
+				throw new IdInvalido();
 			}
 
 		}
@@ -167,7 +178,7 @@ public class Perfumeria implements Vende {
 	}
 
 	@Override
-	public Double vende(Integer idVenta) {
+	public Double vende(Integer idVenta) throws IdInvalido  {
 
 		Double ganaciaTotal = 0.0;
 		Double sumaTotalProductos = 0.0;
@@ -177,8 +188,10 @@ public class Perfumeria implements Vende {
 			if (ventasAux.getIdVenta().equals(idVenta)) {
 
 				sumaTotalProductos += ventasAux.getProducto().getPrecio();
-				// ganacia = sumatotal-devolucion
+				ganaciaTotal = sumaTotalProductos-devolucionProducto(ventasAux.getProducto().getId());
 
+			}else {
+				throw new IdInvalido();
 			}
 
 		}
@@ -186,7 +199,7 @@ public class Perfumeria implements Vende {
 		return ganaciaTotal;
 	}
 
-	public Boolean anularCompra(Integer id) {
+	public Boolean anularCompra(Integer id) throws IdInvalido {
 
 		Boolean compraAnulada = false;
 
@@ -198,11 +211,36 @@ public class Perfumeria implements Vende {
 			if (v.getIdVenta().equals(id)) {
 				it.remove();
 				compraAnulada = true;
+			}else {
+				
+				throw new IdInvalido();
 			}
 
 		}
 
 		return compraAnulada;
 
+	}
+	
+	public Double devolucionProducto(Integer idP) throws IdInvalido {
+		Double devolucion =0.0;
+		for(Producto productoAux : listaProducto) {
+			
+			if(productoAux.getId().equals(idP)) {
+				if(anularCompra(idP) == true) {
+				
+					devolucion= productoAux.getPrecio();
+				
+				
+			}else {
+				throw new IdInvalido();
+			}
+				
+			}
+			
+			
+		}
+		
+		return devolucion;
 	}
 }

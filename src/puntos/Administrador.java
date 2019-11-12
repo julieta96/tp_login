@@ -1,12 +1,27 @@
 package puntos;
-//import java.util.Iterator;
+import java.util.Iterator;
 
 public class Administrador extends Usuario {
 
-	public Administrador(String nombre, String apellido, String email, String password, Integer id) {
-		super(nombre, apellido, email, password, id);
+	public Administrador(String nombre, String apellido, String email, String password) {
+		super(nombre, apellido, email, password);
+		
 		
 	}
+
+	@Override
+	public Boolean esMayor(Integer edad) throws EdadInvalida {
+		Boolean mayor = false;
+		if(edad>=18) {
+			
+			mayor = true;
+		}else {
+			throw new EdadInvalida();
+		}
+		return mayor;
+	}
+	
+	
 	
 	// public Boolean agregarUsuario(Cliente usuario) {
 		//

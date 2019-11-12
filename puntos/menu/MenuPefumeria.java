@@ -4,26 +4,28 @@ import java.util.Scanner;
 
 import puntos.Administrador;
 import puntos.Cliente;
+import puntos.EmailOPasswordInvalido;
 import puntos.Perfumeria;
 import puntos.Producto;
 import puntos.Usuario;
 
 public class MenuPefumeria {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws EmailOPasswordInvalido {
 
 		Scanner teclado = new Scanner(System.in);
 
-		int opciones = 3;
-		int i = 0;
-		int menu = 0;
-		int cantidadUsuarios = 0;
-		int contador = 0;
+		Integer opciones = 3;
+		Integer i = 0;
+		Integer menu = 0;
+		Integer cantidadUsuarios = 0;
+		Integer contador = 0;
 		String nombrePerfumeria = "UNLAM";
 		char categorias = ' ';
 		String categoriaElegida = " ";
+		Integer opcionesCategorias=0;
 
-		Usuario admi = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q", 12);
+		Usuario admi = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
 		Perfumeria miPerfumeria = new Perfumeria(nombrePerfumeria, (Administrador) admi);
 
 		System.out.println("Ingrese cantidad de usuario:");
@@ -50,10 +52,8 @@ public class MenuPefumeria {
 					String email = teclado.next();
 					System.out.println((contador + 1) + ".Ingrese password:");
 					String password = teclado.next();
-					System.out.println((contador + 1) + ".Ingrese id:");
-					Integer id = teclado.nextInt();
 					System.out.println("\t*******************\t");
-					miPerfumeria.agregarUsuario(new Cliente(nombre, apellido, email, password, id));
+					miPerfumeria.agregarUsuario(new Cliente(nombre, apellido, email, password));
 				}
 				break;
 
@@ -69,6 +69,8 @@ public class MenuPefumeria {
 					System.out.println("estado de ingreso: " + miPerfumeria.loguearUsuario(email, password));
 					System.out.println("\t*******************\t");
 					if (miPerfumeria.loguearUsuario(email, password) == true) {
+						
+						do {
 
 						System.out.println("\t Bienvenido a Perfumeria " + nombrePerfumeria + "\t");
 						System.out.println("Elija categoria del producto que desea buscar:");
@@ -86,25 +88,22 @@ public class MenuPefumeria {
 
 							if (categoriaElegida.equalsIgnoreCase("mujer")) {
 								System.out.println("\t*******************\t");
-								Integer codProducto1 = 0213;
 								Double precio1 = 3200.0;
 								String descripcion1 = "FRAGANCIA WORLD EDT KENZO";
-								Producto fragancia1 = new Producto(precio1, 15, codProducto1, descripcion1);
-								System.out.println("(" + codProducto1 + ")" + descripcion1);
+								Producto fragancia1 = new Producto(precio1, 15, descripcion1);
+								System.out.println("(" + fragancia1.getId() + ")" + descripcion1);
 								System.out.println("precio = " + precio1);
 								System.out.println("\t*******************\t");
-								Integer codProducto2 = 0453;
 								Double precio2 = 3500.0;
 								String descripcion2 = "LADY MILLION LUCKY EDP PACO RABANNE";
-								Producto fragancia2 = new Producto(precio2, 20, codProducto2, descripcion2);
-								System.out.println("(" + codProducto2 + ")" + descripcion2);
+								Producto fragancia2 = new Producto(precio2, 20, descripcion2);
+								System.out.println("(" + fragancia2.getId() + ")" + descripcion2);
 								System.out.println("precio = " + precio2);
 								System.out.println("\t*******************\t");
-								Integer codProducto3 = 030;
 								Double precio3 = 3800.0;
 								String descripcion3 = "XS BLACK HER EDP PACO RABANNE";
-								Producto fragancia3 = new Producto(precio3, 35, codProducto3, descripcion3);
-								System.out.println("(" + codProducto3 + ")" + descripcion3);
+								Producto fragancia3 = new Producto(precio3, 35, descripcion3);
+								System.out.println("(" + fragancia3.getId() + ")" + descripcion3);
 								System.out.println("precio = " + precio3);
 								System.out.println("\t*******************\t");
 								System.out.println("Si desea comprar ingrese el codigo del producto:");
@@ -113,25 +112,22 @@ public class MenuPefumeria {
 							if (categoriaElegida.equalsIgnoreCase("hombre")) {
 
 								System.out.println("\t*******************\t");
-								Integer codProducto1 = 0121;
 								Double precio1 = 4200.0;
 								String descripcion1 = "POLO BLUE ULTRABLUE ";
-								Producto fragancia1 = new Producto(precio1, 15, codProducto1, descripcion1);
-								System.out.println("(" + codProducto1 + ")" + descripcion1);
+								Producto fragancia4 = new Producto(precio1, 15, descripcion1);
+								System.out.println("(" + fragancia4.getId() + ")" + descripcion1);
 								System.out.println("precio = " + precio1);
 								System.out.println("\t*******************\t");
-								Integer codProducto2 = 0111;
 								Double precio2 = 6500.0;
 								String descripcion2 = "KENZO HOMME EDP";
-								Producto fragancia2 = new Producto(precio2, 40, codProducto2, descripcion2);
-								System.out.println("(" + codProducto2 + ")" + descripcion2);
+								Producto fragancia5 = new Producto(precio2, 40, descripcion2);
+								System.out.println("(" + fragancia5.getId() + ")" + descripcion2);
 								System.out.println("precio = " + precio2);
 								System.out.println("\t*******************\t");
-								Integer codProducto3 = 010;
 								Double precio3 = 700.0;
 								String descripcion3 = "MEN OCEAN EDT ALTAI";
-								Producto fragancia3 = new Producto(precio3, 5, codProducto3, descripcion3);
-								System.out.println("(" + codProducto3 + ")" + descripcion3);
+								Producto fragancia6 = new Producto(precio3, 5, descripcion3);
+								System.out.println("(" + fragancia6.getId() + ")" + descripcion3);
 								System.out.println("precio = " + precio3);
 								System.out.println("\t*******************\t");
 								System.out.println("Si desea comprar ingrese el codigo del producto:");
@@ -141,25 +137,22 @@ public class MenuPefumeria {
 							if (categoriaElegida.equalsIgnoreCase("niños")) {
 
 								System.out.println("\t*******************\t");
-								Integer codProducto1 = 03;
 								Double precio1 = 500.0;
 								String descripcion1 = "DISNEY PRINCESA PERFUME MANZANA BLANCANIEVES";
-								Producto fragancia1 = new Producto(precio1, 15, codProducto1, descripcion1);
-								System.out.println("(" + codProducto1 + ")" + descripcion1);
+								Producto fragancia7 = new Producto(precio1, 15, descripcion1);
+								System.out.println("(" + fragancia7.getId() + ")" + descripcion1);
 								System.out.println("precio = " + precio1);
 								System.out.println("\t*******************\t");
-								Integer codProducto2 = 04;
 								Double precio2 = 300.0;
 								String descripcion2 = "PACO FUTBOL EDT 60ML";
-								Producto fragancia2 = new Producto(precio2, 10, codProducto2, descripcion2);
-								System.out.println("(" + codProducto2 + ")" + descripcion2);
+								Producto fragancia8 = new Producto(precio2, 10, descripcion2);
+								System.out.println("(" + fragancia8.getId() + ")" + descripcion2);
 								System.out.println("precio = " + precio2);
 								System.out.println("\t*******************\t");
-								Integer codProducto3 = 05;
 								Double precio3 = 280.0;
 								String descripcion3 = "DANIELLE MY LITTLE LATA";
-								Producto fragancia3 = new Producto(precio3, 15, codProducto3, descripcion3);
-								System.out.println("(" + codProducto3 + ")" + descripcion3);
+								Producto fragancia9 = new Producto(precio3, 15, descripcion3);
+								System.out.println("(" + fragancia9.getId() + ")" + descripcion3);
 								System.out.println("precio = " + precio3);
 								System.out.println("\t*******************\t");
 								System.out.println("Si desea comprar ingrese el codigo del producto:");
@@ -169,14 +162,179 @@ public class MenuPefumeria {
 							break;
 
 						case 'b':
-							if (categoriaElegida.equalsIgnoreCase("cosmetico")) {
+							System.out.println("Comestico para:");
+							System.out.println("rostro/ojos/labios");
+							System.out.println("Ingrese la categoria deseada... ");
+							categoriaElegida = teclado.next();
+							if (categoriaElegida.equalsIgnoreCase("rostro")) {
 
-								
+								System.out.println("\t*******************\t");
+								Double precio1 = 450.0;
+								String descripcion1 ="BASE MULTIUSO MAYBELLINE SUPER STAY 24HS TOOL STICK 312 GOLDEN X 7G";
+								Producto cosmetico1 = new Producto(precio1, 20, descripcion1);
+								System.out.println("(" + cosmetico1.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Double precio2 = 320.0;
+								String descripcion2 ="BASE EN POLVO MAYBELLINE BETTER SKIN X 9G";
+								Producto cosmetico2 = new Producto(precio2, 10, descripcion2);
+								System.out.println("(" + cosmetico2.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 550.0;
+								String descripcion3 ="INFALLIBLE PRO-MATTE 24HS NATURAL BUFF 103 ";
+								Producto cosmetico3 = new Producto(precio3, 30, descripcion3);
+								System.out.println("(" + cosmetico3.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
 
 							}
+							
+							if (categoriaElegida.equalsIgnoreCase("ojos")) {
+
+								System.out.println("\t*******************\t");
+								Double precio1 = 400.0;
+								String descripcion1 ="VOLUME MILLION LASHES WTP BLACK";
+								Producto cosmetico4 = new Producto(precio1, 90, descripcion1);
+								System.out.println("(" + cosmetico4.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Double precio2 = 360.0;
+								String descripcion2 ="Scandal'Eyes Reloaded Volume Extreme Black ";
+								Producto cosmetico5 = new Producto(precio2,80 , descripcion2);
+								System.out.println("(" + cosmetico5.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 380.0;
+								String descripcion3 ="SOMBRA DE OJOS THE CITY MINI PALETTE GRAFFITI POPS";
+								Producto cosmetico6 = new Producto(precio3, 85, descripcion3);
+								System.out.println("(" + cosmetico6.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
+
+							}
+							
+							if (categoriaElegida.equalsIgnoreCase("labios")) {
+
+								System.out.println("\t*******************\t");
+								Double precio1 = 335.0;
+								String descripcion1 ="ULTRA HD LABIAL LIQUIDO MATTE 620 REVLON";
+								Producto cosmetico7 = new Producto(precio1, 70, descripcion1);
+								System.out.println("(" + cosmetico7.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Producto codProducto2 = null;
+								Double precio2 = 325.0;
+								String descripcion2 ="LABIAL ONLY MATE 810-BORDX";
+								Producto cosmetico8 = new Producto(precio2,65 , descripcion2);
+								System.out.println("(" + cosmetico8.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 200.0;
+								String descripcion3 ="LASTING FINISH LIPSTICK Airy Fairy";
+								Producto cosmetico9 = new Producto(precio3, 35, descripcion3);
+								System.out.println("(" + cosmetico9.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
+
+							}
+							
+							
+							
+							break;
+							
+						case 'c':
+							
+							System.out.println("Limpieza para:");
+							System.out.println("ropa/cocina/muebles");
+							System.out.println("Ingrese la categoria deseada... ");
+							categoriaElegida = teclado.next();
+							if (categoriaElegida.equalsIgnoreCase("ropa")) {
+
+								System.out.println("\t*******************\t");
+								Double precio1 = 425.0;
+								String descripcion1 ="SKIP JABON PARA ROPA LIQUIDO BAJA ESPUMA LAVARROPAS 3 LT";
+								Producto limpieza1 = new Producto(precio1, 25, descripcion1);
+								System.out.println("(" + limpieza1.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Double precio2 = 80.0;
+								String descripcion2 ="PRE-LAVADO VANISH PODER O2 REPUESTO 400 ML";
+								Producto limpieza2 = new Producto(precio2, 15, descripcion2);
+								System.out.println("(" + limpieza2.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 260.0;
+								String descripcion3 ="JABÓN LÍQUIDO PARA ROPA ARIEL CONCENTRADO 1,2 L RECARGA";
+								Producto limpieza3 = new Producto(precio3, 20, descripcion3);
+								System.out.println("(" + limpieza3.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
+
+							}
+							
+							if (categoriaElegida.equalsIgnoreCase("cocina")) {
+
+								System.out.println("\t*******************\t");
+								Double precio1 = 80.0;
+								String descripcion1 ="DETERGENTE ESPUMA ACTIVA MAGISTRAL LIMON X 500ML";
+								Producto limpieza4 = new Producto(precio1, 15, descripcion1);
+								System.out.println("(" + limpieza4.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Double precio2 = 100.0;
+								String descripcion2 ="AYUDIN COCINA GATILLO ";
+								Producto limpieza5 = new Producto(precio2, 50, descripcion2);
+								System.out.println("(" + limpieza5.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 70.0;
+								String descripcion3 ="LIMPIADOR ANTIGRASA LYSOFORM ";
+								Producto limpieza6 = new Producto(precio3, 20, descripcion3);
+								System.out.println("(" + limpieza6.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
+
+							}
+							
+							if (categoriaElegida.equalsIgnoreCase("muebles")) {
+
+								System.out.println("\t*******************\t");
+								Double precio1 = 125.0;
+								String descripcion1 ="LUSTRAMUEBLES AEROSOL NARANJA BLEM ";
+								Producto limpieza7 = new Producto(precio1, 80, descripcion1);
+								System.out.println("(" + limpieza7.getId() + ")" + descripcion1);
+								System.out.println("precio = " + precio1);
+								System.out.println("\t*******************\t");
+								Double precio2 = 100.0;
+								String descripcion2 ="LUESTRAMUEBLES AEROSOL CERAMICOL";
+								Producto limpieza8 = new Producto(precio2, 30, descripcion2);
+								System.out.println("(" + limpieza8.getId() + ")" + descripcion2);
+								System.out.println("precio = " + precio2);
+								System.out.println("\t*******************\t");
+								Double precio3 = 125.0;
+								String descripcion3 ="LUSTRAMUEBLES AEROSOL LAVANDA BLEM ";
+								Producto limpieza9 = new Producto(precio3, 80, descripcion3);
+								System.out.println("(" + limpieza9.getId() + ")" + descripcion3);
+								System.out.println("precio = " + precio3);
+								System.out.println("\t*******************\t");
+								System.out.println("Si desea comprar ingrese el codigo del producto:");
+
+							}
+							
+							break;
+							default: 
+								System.err.println("error , categoria inexistente");
 
 						}
 
+					}while();
+						
 					}
 
 				}

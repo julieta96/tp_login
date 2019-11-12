@@ -4,8 +4,8 @@ public class Cliente extends Usuario implements Comprar {
 
 	private Integer puntos;
 
-	public Cliente(String nombre, String apellido, String email, String password, Integer id) {
-		super(nombre, apellido, email, password, id);
+	public Cliente(String nombre, String apellido, String email, String password) {
+		super(nombre, apellido, email, password);
 
 		this.puntos = 0;
 
@@ -44,19 +44,34 @@ public class Cliente extends Usuario implements Comprar {
 		return true;
 	}
 
+
+
+
 	@Override
-	public Boolean comprar(Cliente cliente, Producto p, Integer id) {
+	public Boolean esMayor(Integer edad) throws EdadInvalida {
+		Boolean mayor = false;
+		if (edad >= 18) {
 
-		Producto productoEncontrado = null;
+			mayor = true;
+		}else {
+			throw new EdadInvalida();
+		}
+		return mayor;
+	}
+
+	@Override
+	public Boolean comprar(Cliente cliente, Producto p) {
 		Boolean compraExitosa = false;
-		Perfumeria productos = null;
-		Perfumeria ventas = null;
+		Perfumeria pf1 = new Perfumeria();
+		// Perfumeria productos = p1 ;
+		Perfumeria v = new Perfumeria();
 
-		for (Producto buscarProducto : productos.getListaProducto()) {
+		for (Producto buscarProducto : pf1.getListaProducto()) {
 			if (buscarProducto.equals(p)) {
 				if (buscarProducto.getEstado() == true) {
 
-					ventas.agregarVenta(new Venta(cliente, p, id));
+					v.agregarVenta(new Venta(cliente, p));
+					this.puntos = this.puntos + p.getPunto();
 					compraExitosa = true;
 
 				}
@@ -64,9 +79,8 @@ public class Cliente extends Usuario implements Comprar {
 			}
 
 		}
-
+		
 		return compraExitosa;
-
 	}
 
 }
