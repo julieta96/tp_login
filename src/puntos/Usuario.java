@@ -57,6 +57,5 @@ public abstract class Usuario {
 		this.id = id;
 	}
 
-	public abstract Boolean esMayor(Integer edad) throws EdadInvalida;
-
+	
 }

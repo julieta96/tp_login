@@ -5,33 +5,29 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import puntos.Producto;
 
 public class Perfumeria implements Vende {
 
-	private String nombre;
-	private Administrador administrador;
-	private Set<Cliente> listaUsuarios = new HashSet<Cliente>();
+	private static Perfumeria instancia;
+	private static String nombre;
+	private Set<Cliente> listaUsuarios = new TreeSet<Cliente>();
 	private List<Venta> listaVentas = new LinkedList<Venta>();
 	private List<Producto> listaProducto = new LinkedList<Producto>();
 	private Boolean sesionAbierta;
 
-	public Perfumeria(String nombre, Administrador administrador) {
+	public Perfumeria(String nombre) {
 		this.nombre = nombre;
-		this.administrador = administrador;
 		this.sesionAbierta = false;
 	}
 
-	public Perfumeria(String nombre, Administrador administrador, String nombreAd, String apellido, String email,
-			String password, Integer id) {
-		this.nombre = nombre;
-		this.administrador = new Administrador(nombreAd, apellido, email, password);
-		this.sesionAbierta = false;
-	}
 	
-	public Perfumeria() {
-		
+	public static Perfumeria getInstancia() {
+		if (instancia==null )
+			instancia = new Perfumeria(nombre);
+		return instancia;
 	}
 
 
@@ -67,15 +63,6 @@ public class Perfumeria implements Vende {
 		this.listaProducto = listaProducto;
 	}
 	
-	
-
-	public Administrador getAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
-	}
 
 	public Boolean agregarUsuario(Cliente usuario) {
 
@@ -95,8 +82,8 @@ public class Perfumeria implements Vende {
 
 	}
 
-	public Boolean loguearUsuario(String email, String password) throws EmailOPasswordInvalido {
-
+	public Boolean loguearUsuario(String email, String password)  throws UsuarioIncorrectoException {
+          
 		for (Cliente lista : listaUsuarios) {
 
 			if (lista.getEmail().equals(email) && lista.getPassword().equals(password)) {
@@ -104,12 +91,12 @@ public class Perfumeria implements Vende {
 				sesionAbierta = true;
 				break;
 
-			} else {
+			} else{
 				
 				sesionAbierta = false;
-				throw new EmailOPasswordInvalido();
-				
-			}
+				throw new UsuarioIncorrectoException();
+				}
+			
 		}
 		
 		
@@ -124,7 +111,7 @@ public class Perfumeria implements Vende {
 		}
 	}
 
-	public Boolean eliminarUsuario(Integer idU) throws IdInvalido {
+	public Boolean eliminarUsuario(Integer idU) throws UsuarioIncorrectoException {
 
 		Boolean eliminado = false;
 
@@ -137,7 +124,7 @@ public class Perfumeria implements Vende {
 				it.remove();
 				eliminado = true;
 			}else {
-				throw new IdInvalido();
+				throw new UsuarioIncorrectoException();
 			}
 
 		}
@@ -146,20 +133,22 @@ public class Perfumeria implements Vende {
 
 	}
 
-	public LinkedList<Producto> buscarProductoPorPuntos(Integer puntos) {
+	public LinkedList<Producto> buscarProductoPorPuntos(Integer puntos)throws ProductoNoEncontradoException {
 
 		LinkedList<Producto> productosConPuntos = new LinkedList<Producto>();
 
 		for (Producto buscar : listaProducto) {
 			if (buscar.getPunto().equals(puntos)) {
 				productosConPuntos.add(buscar);
+			}else {
+				throw new ProductoNoEncontradoException();
 			}
 		}
 
 		return productosConPuntos;
 	}
 
-	public Producto buscarProductoPorId(Integer idProducto) throws IdInvalido {
+	public Producto buscarProductoPorId(Integer idProducto)throws ProductoNoEncontradoException {
 
 		Producto productoEncontrado = null;
 
@@ -168,7 +157,7 @@ public class Perfumeria implements Vende {
 
 				productoEncontrado = buscarProducto;
 			}else {
-				throw new IdInvalido();
+				throw new ProductoNoEncontradoException();
 			}
 
 		}
@@ -177,29 +166,9 @@ public class Perfumeria implements Vende {
 
 	}
 
-	@Override
-	public Double vende(Integer idVenta) throws IdInvalido  {
 
-		Double ganaciaTotal = 0.0;
-		Double sumaTotalProductos = 0.0;
 
-		for (Venta ventasAux : listaVentas) {
-
-			if (ventasAux.getIdVenta().equals(idVenta)) {
-
-				sumaTotalProductos += ventasAux.getProducto().getPrecio();
-				ganaciaTotal = sumaTotalProductos-devolucionProducto(ventasAux.getProducto().getId());
-
-			}else {
-				throw new IdInvalido();
-			}
-
-		}
-
-		return ganaciaTotal;
-	}
-
-	public Boolean anularCompra(Integer id) throws IdInvalido {
+	public Boolean anularCompra(Integer id) throws CompraNoEncontradaException{
 
 		Boolean compraAnulada = false;
 
@@ -212,8 +181,7 @@ public class Perfumeria implements Vende {
 				it.remove();
 				compraAnulada = true;
 			}else {
-				
-				throw new IdInvalido();
+				throw new CompraNoEncontradaException();
 			}
 
 		}
@@ -221,26 +189,20 @@ public class Perfumeria implements Vende {
 		return compraAnulada;
 
 	}
-	
-	public Double devolucionProducto(Integer idP) throws IdInvalido {
-		Double devolucion =0.0;
-		for(Producto productoAux : listaProducto) {
-			
-			if(productoAux.getId().equals(idP)) {
-				if(anularCompra(idP) == true) {
-				
-					devolucion= productoAux.getPrecio();
-				
-				
-			}else {
-				throw new IdInvalido();
-			}
-				
-			}
-			
-			
-		}
-		
-		return devolucion;
+
+
+	@Override
+	public Double venderConPuntos(Integer idVenta) throws PuntosInsuficientesException {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
+	@Override
+	public Double venderConEfectivo(Integer idVenta) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

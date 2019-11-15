@@ -2,6 +2,7 @@ package puntos;
 
 public interface Vende {
 	
-	public Double vende(Integer idVenta)throws IdInvalido;
+	public Double venderConPuntos(Integer idVenta)throws PuntosInsuficientesException;
+	public Double venderConEfectivo(Integer idVenta);
 
 }

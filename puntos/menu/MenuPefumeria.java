@@ -1,17 +1,16 @@
 package menu;
 
 import java.util.Scanner;
-
-import puntos.Administrador;
 import puntos.Cliente;
 import puntos.EmailOPasswordInvalido;
 import puntos.Perfumeria;
 import puntos.Producto;
 import puntos.Usuario;
+import puntos.UsuarioIncorrectoException;
 
 public class MenuPefumeria {
 
-	public static void main(String[] args) throws EmailOPasswordInvalido {
+	public static void main(String[] args) throws EmailOPasswordInvalido, UsuarioIncorrectoException {
 
 		Scanner teclado = new Scanner(System.in);
 
@@ -23,10 +22,10 @@ public class MenuPefumeria {
 		String nombrePerfumeria = "UNLAM";
 		char categorias = ' ';
 		String categoriaElegida = " ";
-		Integer opcionesCategorias=0;
+		Integer opcionesCategorias=3;
+		Integer c =0;
 
-		Usuario admi = new Administrador("Lucia", "Perez", "lu_perez@gmail.com", "1234q");
-		Perfumeria miPerfumeria = new Perfumeria(nombrePerfumeria, (Administrador) admi);
+		Perfumeria miPerfumeria = new Perfumeria(nombrePerfumeria);
 
 		System.out.println("Ingrese cantidad de usuario:");
 		cantidadUsuarios = teclado.nextInt();
@@ -71,7 +70,7 @@ public class MenuPefumeria {
 					if (miPerfumeria.loguearUsuario(email, password) == true) {
 						
 						do {
-
+                        c++;
 						System.out.println("\t Bienvenido a Perfumeria " + nombrePerfumeria + "\t");
 						System.out.println("Elija categoria del producto que desea buscar:");
 						System.out.println("a.fragancia");
@@ -107,7 +106,7 @@ public class MenuPefumeria {
 								System.out.println("precio = " + precio3);
 								System.out.println("\t*******************\t");
 								System.out.println("Si desea comprar ingrese el codigo del producto:");
-
+                                Integer fraganciaCod=teclado.nextInt();
 							}
 							if (categoriaElegida.equalsIgnoreCase("hombre")) {
 
@@ -333,7 +332,7 @@ public class MenuPefumeria {
 
 						}
 
-					}while();
+					}while(c<opcionesCategorias);
 						
 					}
 
