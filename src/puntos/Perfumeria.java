@@ -194,6 +194,26 @@ public class Perfumeria implements Vende {
 	@Override
 	public Double venderConPuntos(Integer idVenta) throws PuntosInsuficientesException {
 		// TODO Auto-generated method stub
+		
+		//Boolean compraExitosa = false;
+//		Perfumeria pf1 = new Perfumeria();
+//		// Perfumeria productos = p1 ;
+//		Perfumeria v = new Perfumeria();
+//
+//		for (Producto buscarProducto : pf1.getListaProducto()) {
+//			if (buscarProducto.equals(p)) {
+//				if (buscarProducto.getEstado() == true) {
+//
+//					v.agregarVenta(new Venta(cliente, p));
+//					this.puntos = this.puntos + p.getPunto();
+//					compraExitosa = true;
+//
+//				}
+//
+//			}
+//
+//		}
+//		
 		return null;
 	}
 
@@ -201,6 +221,25 @@ public class Perfumeria implements Vende {
 	@Override
 	public Double venderConEfectivo(Integer idVenta) {
 		// TODO Auto-generated method stub
+		//Boolean compraExitosa = false;
+//		Perfumeria pf1 = new Perfumeria();
+//		// Perfumeria productos = p1 ;
+//		Perfumeria v = new Perfumeria();
+//
+//		for (Producto buscarProducto : pf1.getListaProducto()) {
+//			if (buscarProducto.equals(p)) {
+//				if (buscarProducto.getEstado() == true) {
+//
+//					v.agregarVenta(new Venta(cliente, p));
+//					this.puntos = this.puntos + p.getPunto();
+//					compraExitosa = true;
+//
+//				}
+//
+//			}
+//
+//		}
+//		
 		return null;
 	}
 	

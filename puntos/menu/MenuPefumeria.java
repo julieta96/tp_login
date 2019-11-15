@@ -2,7 +2,6 @@ package menu;
 
 import java.util.Scanner;
 import puntos.Cliente;
-import puntos.EmailOPasswordInvalido;
 import puntos.Perfumeria;
 import puntos.Producto;
 import puntos.Usuario;
@@ -10,7 +9,7 @@ import puntos.UsuarioIncorrectoException;
 
 public class MenuPefumeria {
 
-	public static void main(String[] args) throws EmailOPasswordInvalido, UsuarioIncorrectoException {
+	public static void main(String[] args) throws UsuarioIncorrectoException {
 
 		Scanner teclado = new Scanner(System.in);
 

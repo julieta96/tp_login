@@ -1,6 +1,6 @@
 package puntos;
 
-public class Cliente extends Usuario implements Comprar , Comparable <Cliente>{
+public class Cliente extends Usuario implements Comparable <Cliente>{
 
 	private Integer puntos;
 
@@ -44,29 +44,6 @@ public class Cliente extends Usuario implements Comprar , Comparable <Cliente>{
 		return true;
 	}
 
-	@Override
-	public Boolean comprar(Cliente cliente, Producto p) {
-		Boolean compraExitosa = false;
-//		Perfumeria pf1 = new Perfumeria();
-//		// Perfumeria productos = p1 ;
-//		Perfumeria v = new Perfumeria();
-//
-//		for (Producto buscarProducto : pf1.getListaProducto()) {
-//			if (buscarProducto.equals(p)) {
-//				if (buscarProducto.getEstado() == true) {
-//
-//					v.agregarVenta(new Venta(cliente, p));
-//					this.puntos = this.puntos + p.getPunto();
-//					compraExitosa = true;
-//
-//				}
-//
-//			}
-//
-//		}
-//		
-		return compraExitosa;
-	}
 
 	@Override
 	public int compareTo(Cliente c1) {

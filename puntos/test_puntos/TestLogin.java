@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import puntos.Cliente;
-import puntos.EmailOPasswordInvalido;
+
 
 import puntos.Perfumeria;
 import puntos.Producto;
